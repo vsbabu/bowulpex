@@ -1,0 +1,18 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# dependency directories
+vendor
+node_modules
+# Generated 
+dist/
+
+# JetBrains files
+*.iml
+.idea

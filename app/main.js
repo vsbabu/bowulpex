@@ -1,0 +1,1 @@
+console.log('Does jQuery exist?', typeof $ !== 'undefined');
