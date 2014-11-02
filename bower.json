@@ -1,9 +1,9 @@
 {
   "name": "example",
   "version": "0.0.0",
-  "homepage": "https://github.com/Teamwork/main-bower-files-and-gulp",
+  "homepage": "https://github.com/vsbabu/bowulpex",
   "authors": [
-    "Adam Lynch <adam@teamwork.com>"
+    "Satheesh V <vsbabu@gmail.com>"
   ],
   "main": "app/*",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.2.0",
-    "ember": "~1.8.0"
+    "bootstrap": "^3.2.0",
+    "ember": "^1.8.0"
   }
 }

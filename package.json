@@ -2,18 +2,18 @@
   "name": "example",
   "version": "0.0.0",
   "description": "Example",
-  "main": "app/main.js",
+  "main": "app/scripts/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Teamwork/main-bower-files-and-gulp.git"
+    "url": "https://github.com/vsbabu/bowulpex.git"
   },
-  "author": "Adam Lynch <adam@teamwork.com>",
+  "author": "Satheesh V <vsbabu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Teamwork/main-bower-files-and-gulp/issues"
+    "url": "https://github.com/vsbabu/bowulpex/issues"
   },
   "dependencies": {
     "gulp": "^3.8.9"

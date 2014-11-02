@@ -101,6 +101,5 @@ gulp.task('serve', function() {
   gulp.watch('app/images/**/*', ['images']);
   gulp.watch('app/**/*.html', ['app']);
   livereload.listen();
-  //gulp.watch(['*.html', 'styles/**/*.css', 'scripts/**/*.js'], {cwd: 'app'}, reload);
   gulp.watch(['dist/**']).on('change', livereload.changed);
 });
