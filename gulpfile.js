@@ -1,8 +1,7 @@
-var gulp = require('gulp');
-var filter = require('gulp-filter');
-var mainBowerFiles = require('main-bower-files');
-
-var minifycss = require('gulp-minify-css'),
+var gulp = require('gulp'),
+    filter = require('gulp-filter'),
+    mainBowerFiles = require('main-bower-files'),
+    minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
@@ -11,7 +10,10 @@ var minifycss = require('gulp-minify-css'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
+    browserSync = require('browser-sync'),
     del = require('del');
+
+var reload = browserSync.reload;
 
 var filterByExtension = function(extension){
     return filter(function(file){
@@ -47,13 +49,58 @@ gulp.task('vendor', function() {
         ;
 });
 gulp.task('app', function() {
-  return gulp.src('app/*')
+  return gulp.src('app/**/*.html')
     .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('styles', function() {
+  gulp.src('app/**/*')
+    .pipe(filterByExtension('css'))
+    .pipe(concat('app.css'))
+    .pipe(gulp.dest('dist/'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(minifycss())
+    .pipe(gulp.dest('dist/'))
+    .pipe(notify({ message: 'Styles task complete' }));
+});
+
+//minify, make one js etc
+gulp.task('scripts', function() {
+  return gulp.src('app/**/*')
+    .pipe(filterByExtension('js'))
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('dist/'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/'))
+    .pipe(notify({ message: 'Scripts task complete' }));
+});
+
+gulp.task('images', function() {
+  return gulp.src('app/images/**/*')
+    .pipe(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }))
+    .pipe(gulp.dest('dist/images/'))
+    .pipe(notify({ message: 'Images task complete' }));
 });
 
 gulp.task('clean', function(cb) {
     del(['dist'], cb)
 });
 gulp.task('default', ['clean'], function(){
-  gulp.start('vendor', 'app');
+  gulp.start('vendor', 'app', 'styles', 'images', 'scripts' );
+});
+
+gulp.task('serve', function() {
+  browserSync({
+    server: {
+      baseDir: 'dist'
+    }
+  });
+  gulp.watch('app/styles/**/*.css', ['styles']);
+  gulp.watch('app/scripts/**/*.js', ['scripts']);
+  gulp.watch('app/images/**/*', ['images']);
+  gulp.watch('app/**/*.html', ['app']);
+  livereload.listen();
+  //gulp.watch(['*.html', 'styles/**/*.css', 'scripts/**/*.js'], {cwd: 'app'}, reload);
+  gulp.watch(['dist/**']).on('change', livereload.changed);
 });
